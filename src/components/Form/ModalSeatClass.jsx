@@ -5,21 +5,8 @@ import Select from "react-select";
 import axios from "axios";
 const ModalSeatClass = (props) => {
   const [dataClass, setDataClass] = useState([]);
-  const URL = "http://localhost:8080/seat_class";
-
-  const fetchApi = async () => {
-    try {
-      const response = await axios.get(
-        // `${process.env.REACT_APP_API}/seat_classs`
-        URL
-      );
-      setDataClass(response.data.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const [inputValue, setInputValue] = useState();
+  
   const inputHandleChange = (selectedOption) => {
     setInputValue(selectedOption);
     props.setDataClass(selectedOption);
@@ -31,8 +18,19 @@ const ModalSeatClass = (props) => {
   };
 
   useEffect(() => {
+    const fetchApi = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/seat_classs`
+          // URL
+        );
+        setDataClass(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchApi();
-  }, [URL]);
+  }, []);
 
   const selectOptions = dataClass
     ? dataClass.map((classes) => ({

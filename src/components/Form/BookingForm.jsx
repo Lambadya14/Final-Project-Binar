@@ -61,7 +61,6 @@ const BookingForm = (props) => {
     setSelectedPassengers(passengers);
   };
 
-  console.log("data");
   return (
     <Container className="mt-4 mb-5">
       <Row className="justify-content-center">

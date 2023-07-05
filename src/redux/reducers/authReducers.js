@@ -20,15 +20,7 @@ const authSlicer = createSlice({
 
       state.token = action.payload;
     },
-    // setOTP: (state, action) => {
-    //   if (action.payload) {
-    //     localStorage.setItem("otp", action.payload);
-    //   } else {
-    //     localStorage.removeItem("otp");
-    //   }
 
-    //   state.token = action.payload;
-    // },
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
     },

@@ -18,9 +18,7 @@ export const getTicketDetails = () => async (dispatch) => {
 };
 export const getApiAirports = () => async (dispatch) => {
   try {
-    const response = await axios.get(
-      `https://42b5-182-253-127-141.ngrok-free.app/airports`
-    );
+    const response = await axios.get(`${process.env.REACT_APP_API}/airports`);
     dispatch(setAirports(response.data.data));
     // console.log(setAirports(response.data));
   } catch (error) {
