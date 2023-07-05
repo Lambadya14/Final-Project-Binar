@@ -6,15 +6,14 @@ import Select from "react-select";
 
 const ModalSeatClass = (props) => {
   const [dataClass, setDataClass] = useState([]);
-  // const URL = "http://localhost:8080/airports/seat_classs";
-  // const { REACT_APP_API } = process.env;
-  // const URL = REACT_APP_API + `/airports/seat_classs`;
+  const URL = "http://localhost:8080/airports/seat_classs";
 
   const fetchApi = async () => {
     try {
       // const response = await axios.get(URL);
       const response = await axios.get(
-        `${process.env.REACT_APP_API}/seat_classs`
+        // `${process.env.REACT_APP_API}/seat_classs`
+        URL
       );
       setDataClass(response.data.data);
     } catch (error) {
