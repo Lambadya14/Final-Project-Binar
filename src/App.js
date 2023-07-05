@@ -69,13 +69,41 @@ function App() {
                 </Protected>
               }
             />
-            <Route path="/Checkout" element={<Checkout />} />
+            <Route
+              path="/Checkout"
+              element={
+                <Protected>
+                  <Checkout />
+                </Protected>
+              }
+            />
             <Route path="/EmailRequest" element={<EmailRequest />} />
-            <Route path="/Payment" element={<Payment />} />
-            <Route path="/Notifikasi" element={<Notifikasi />} />
+            <Route
+              path="/Payment"
+              element={
+                <Protected>
+                  <Payment />
+                </Protected>
+              }
+            />
+            <Route
+              path="/Notifikasi"
+              element={
+                <Protected>
+                  <Notifikasi />
+                </Protected>
+              }
+            />
             {/* <Route path="/SearchPage" element={<SearchPage />} /> */}
 
-            <Route path="/search" element={<SearchPage />} />
+            <Route
+              path="/search"
+              element={
+                <Protected>
+                  <SearchPage />
+                </Protected>
+              }
+            />
             <Route
               path="/Profile"
               element={
