@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
 ### Kelompok 7 </br>
-Ratih Kumala
-Riki Ega Pramana
-Victor Arie Lambadya Sirait
+
+Ratih Kumala </br>
+Riki Ega Pramana </br>
+Victor Arie Lambadya Sirait </br>
