@@ -4,28 +4,36 @@ import { Button, Container, Row, Col, Modal, Form } from "react-bootstrap";
 import { BsArrowLeft } from "react-icons/bs";
 import { LuFilter } from "react-icons/lu";
 import { AiOutlineSearch } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import { getTicketDetails } from "../redux/actions/postActions";
-import RiwayatKosong from "../components/RiwayatKosong";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getTicketDetails } from "../redux/actions/postActions";
+// import RiwayatKosong from "../components/RiwayatKosong";
 import RiwayatTersedia from "../components/RiwayatTersedia";
-import { DatePicker } from "antd";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import AccordionRiwayat from "../components/AccordionRiwayat";
 // import moment from "moment";
-
-const { RangePicker } = DatePicker;
 
 function Riwayat() {
   const [showFilter, setShowFilter] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [dateFrom, setDateFrom] = useState([]);
-  const [dateTo, setDateTo] = useState([]);
   const [tickets, setTickets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     async function getTicketDetails() {
@@ -54,16 +62,16 @@ function Riwayat() {
   const handleCloseSearch = () => setShowSearch(false);
   const handleShowSearch = () => setShowSearch(true);
 
-  const rawDate = dateFrom;
-  const formattedDate = formatDate(rawDate);
-
-  console.log(formattedDate);
-
-  function formatDate(date) {
-    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
-    const formatted = new Intl.DateTimeFormat("en", options).format(date);
-    return formatted;
-  }
+  // const rawDate = dateFrom;
+  // const formattedDate = formatDate(rawDate);
+  //
+  // console.log(formattedDate);
+  //
+  // function formatDate(date) {
+  //   const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+  //   const formatted = new Intl.DateTimeFormat("en", options).format(date);
+  //   return formatted;
+  // }
   const handleStartDateChange = (event) => {
     const value = event.target.value;
     setStartDate(value);
@@ -125,13 +133,17 @@ function Riwayat() {
             </Button>
           </Col>
         </Row>
-        {tickets ? (
+
+        {windowWidth <= 1200 ? (
+          <AccordionRiwayat
+            filteredData={filteredData}
+            filteredCards={filteredCards}
+          />
+        ) : (
           <RiwayatTersedia
             filteredCards={filteredCards}
             filteredData={filteredData}
           />
-        ) : (
-          <RiwayatKosong />
         )}
       </Container>
       <Modal show={showFilter} onHide={handleCloseFilter} centered>
@@ -141,24 +153,15 @@ function Riwayat() {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              {/* <Form.Label>Pilih Tanggal: &nbsp;</Form.Label>
-              <RangePicker
-                onChange={(tanggal) => {
-                  console.log(tanggal[0].$d);
-                  console.log(tanggal[1].$d);
-                  setDateFrom(tanggal[0].$d);
-                  setDateTo(tanggal[1].$d);
-                }}
-              /> */}
               <label>Start Date:</label>
-              <input
+              <Form.Control
                 type="date"
                 value={startDate}
                 onChange={handleStartDateChange}
               />
 
               <label>End Date:</label>
-              <input
+              <Form.Control
                 type="date"
                 value={endDate}
                 onChange={handleEndDateChange}

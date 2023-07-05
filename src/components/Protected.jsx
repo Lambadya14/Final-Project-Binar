@@ -11,7 +11,7 @@ const AuthToken = ({ children }) => {
       try {
         await axios.get(`${process.env.REACT_APP_API}/auth/whoami`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `${token}`,
           },
         });
       } catch (error) {

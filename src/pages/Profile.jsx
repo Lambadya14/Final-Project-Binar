@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { FiArrowLeft, FiEdit3, FiLogOut, FiSettings } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import {
   Button,
@@ -12,33 +11,19 @@ import {
   Row,
   Form,
 } from "react-bootstrap";
+// import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { getMe, logout } from "../redux/actions/authActions";
 
 const Profile = () => {
-  const [dataUser, setDataUser] = useState("");
+  // const [dataUser, setDataUser] = useState("");
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const getProfile = async () => {
-      try {
-        const token = localStorage.getItem("token");
-
-        const response = await axios.get(
-          `${process.env.REACT_APP_API}/auth/whoami`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const data = response.data.data.user;
-        setDataUser(data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-    getProfile();
-  }, []);
+    dispatch(getMe());
+  }, [dispatch]);
 
   return (
     <>
@@ -103,6 +88,10 @@ const Profile = () => {
               </ListGroup.Item>
               <ListGroup.Item action className="mt-4 border-bottom pb-3">
                 <Link
+                  onClick={() => {
+                    dispatch(logout(navigate));
+                  }}
+                  as={Link}
                   to={"/"}
                   style={{
                     color: "#151515",
@@ -138,7 +127,7 @@ const Profile = () => {
                       >
                         Nama Lengkap
                       </Form.Label>
-                      <Form.Control type="text" value={dataUser?.name} />
+                      <Form.Control type="text" value={user?.name} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label
@@ -147,7 +136,7 @@ const Profile = () => {
                       >
                         Nomor Telepon
                       </Form.Label>
-                      <Form.Control type="email" value={dataUser?.email} />
+                      <Form.Control type="email" value={user?.email} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label

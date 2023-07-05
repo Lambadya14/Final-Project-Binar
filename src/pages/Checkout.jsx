@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DataPemesan from "../components/DataPemesanan";
 import DataPenumpang from "../components/DataPenumpang";
@@ -15,6 +15,36 @@ import {
 } from "react-bootstrap";
 
 const Checkout = () => {
+  const [time, setTime] = useState(900); // Initial time in seconds
+
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      setTime((prevTime) => prevTime - 1);
+    }, 1000);
+
+    // Refresh the page when time reaches 0
+    if (time === 0) {
+      clearInterval(countdown);
+      window.location.reload();
+    }
+
+    return () => {
+      clearInterval(countdown);
+    };
+  }, [time]);
+
+  const formatTime = () => {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
+
+    const formattedHours = String(hours).padStart(2, "0");
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(seconds).padStart(2, "0");
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  };
+
   return (
     <>
       <Navbar />
@@ -55,7 +85,7 @@ const Checkout = () => {
             className="text-center text-light border-0"
             style={{ background: "#FF0000", borderRadius: "10px" }}
           >
-            Selesaikan dalam 00:15:00
+            Selesaikan dalam {formatTime()}
           </Alert>
         </Row>
         <Row className="gap-4">

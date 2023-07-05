@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, getMe } from "../redux/actions/authActions";
+import { getMe } from "../redux/actions/authActions";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdCircleNotifications } from "react-icons/md";
 import { VscAccount } from "react-icons/vsc";
@@ -11,7 +11,6 @@ function Homepage() {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { isLoggedIn } = useSelector((state) => state.auth);
   const handleOptionClick = (option) => {
@@ -41,7 +40,7 @@ function Homepage() {
           <Nav className="d-flex justify-content-end gap-2">
             {isLoggedIn ? (
               <>
-                <Button
+                {/* <Button
                   onClick={() => {
                     dispatch(logout(navigate));
                   }}
@@ -51,7 +50,7 @@ function Homepage() {
                   className="d-flex align-items-center justify-content-between border-0 rounded-3"
                 >
                   Logout
-                </Button>
+                </Button> */}
                 <Button
                   className={`bg-transparent border-0 option ${
                     selectedOption === "option1" ? "active" : ""

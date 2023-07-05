@@ -30,7 +30,7 @@ export const getMe =
           },
         }
       );
-      const data = response.data.data;
+      const data = response.data.data.user;
 
       dispatch(setUser(data));
 
