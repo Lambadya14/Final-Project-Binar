@@ -1,6 +1,4 @@
-# Getting Started with Create React App
-
-### Kelompok 7 </br>
+# Kelompok 7 </br>
 
 Ratih Kumala </br>
 Riki Ega Pramana </br>
