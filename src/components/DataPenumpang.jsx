@@ -5,47 +5,45 @@ import { toast } from "react-toastify";
 
 const DataPenumpang = () => {
   const [showInput, setShowInput] = useState(false);
-  // const [checkout, setCheckout] = useState();
-  // useEffect(() => {
-  //   async function fetchAPI() {
-  //     try {
-  //       const token = localStorage.getItem("token");
-  //       let data = JSON.stringify({
-  //         full_name: "Victor Sirait",
-  //         family_name: "Sirait",
-  //         title: "string",
-  //         date_birth: "2023-07-05",
-  //         nationality: "Indonesia",
-  //         identity_number: "123123123",
-  //         issuing_country: "Indonesia",
-  //         identity_expired: "2023-07-12",
-  //         seat_id: 1,
-  //         seat_return_id: 1,
-  //       });
-  //       let config = {
-  //         method: "post",
-  //         url: `${process.env.REACT_APP_API}/checkout-user`,
-  //         header: {
-  //           "Content-Type": "application/json",
-  //           Accept: "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //         data: data,
-  //       };
-  //       const response = await axios(config);
-  //       setCheckout(response.data);
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       if (axios.isAxiosError(error)) {
-  //         toast.error(error.response.data.message);
-  //         return;
-  //       }
-  //       toast.error(error.message);
-  //     }
-  //   }
-  //   fetchAPI();
-  // }, []);
-  // console.log(checkout);
+  const [checkout, setCheckout] = useState();
+  useEffect(() => {
+    // async function fetchAPI() {
+    //   try {
+    //     const token = localStorage.getItem("token");
+    //     let data = JSON.stringify({
+    //       full_name: "Victor Sirait",
+    //       family_name: "Sirait",
+    //       title: "string",
+    //       date_birth: "2023-07-05",
+    //       nationality: "Indonesia",
+    //       identity_number: "123123123",
+    //       issuing_country: "Indonesia",
+    //       identity_expired: "2023-07-12",
+    //       seat_id: 1,
+    //       seat_return_id: 1,
+    //     });
+    //     let config = {
+    //       method: "post",
+    //       url: `${process.env.REACT_APP_API}/checkout-user`,
+    //       header: {
+    //         "Content-Type": "application/json",
+    //         Accept: "application/json",
+    //         Authorization: `${token}`,
+    //       },
+    //       data: data,
+    //     };
+    //     const response = await axios(config);
+    //     setCheckout(response.data);
+    //   } catch (error) {
+    //     if (axios.isAxiosError(error)) {
+    //       toast.error(error.response.data.message);
+    //       return;
+    //     }
+    //     toast.error(error.message);
+    //   }
+    // }
+    // fetchAPI();
+  }, []);
   const toggleInput = () => {
     setShowInput(!showInput);
   };

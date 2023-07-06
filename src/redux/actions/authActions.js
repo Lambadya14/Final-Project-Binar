@@ -131,8 +131,7 @@ export const registerLoginWithGoogle =
       let config = {
         method: "get",
         maxBodyLength: Infinity,
-        //This API from Fahmi AlFareza temporary!
-        url: `https://42b5-182-253-127-141.ngrok-free.app/auth/oauth`,
+        url: `${process.env.REACT_APP_API}/auth/oauth`,
         headers: {
           "Content-Type": "application/json",
         },

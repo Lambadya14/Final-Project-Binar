@@ -8,38 +8,38 @@ const DataPemesan = () => {
   const [checkout, setCheckout] = useState();
 
   useEffect(() => {
-    async function fetchAPI() {
-      try {
-        const token = localStorage.getItem("token");
-        let data = JSON.stringify({
-          full_name: "victor",
-          family_name: "sirait",
-          email: "lambadya421@gmail.com",
-        });
-        let config = {
-          method: "post",
-          url: `${process.env.REACT_APP_API}/checkout-user`,
-          header: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          data: data,
-        };
-        const response = await axios(config);
-        setCheckout(response.data);
-        console.log(response.data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          toast.error(error.response.data.message);
-          return;
-        }
-        toast.error(error.message);
-      }
-    }
-    fetchAPI();
+    // async function fetchAPI() {
+    //   try {
+    //     const token = localStorage.getItem("token");
+    //     let data = JSON.stringify({
+    //       full_name: "victor",
+    //       family_name: "sirait",
+    //       email: "lambadya421@gmail.com",
+          
+    //     });
+    //     let config = {
+    //       method: "post",
+    //       url: `${process.env.REACT_APP_API}/checkout-user`,
+    //       header: {
+    //         "Content-Type": "application/json",
+    //         Accept: "application/json",
+    //         Authorization: `${token}`,
+    //       },
+    //       data: data,
+    //     };
+    //     const response = await axios(config);
+    //     setCheckout(response.data);
+    //     console.log(response.data);
+    //   } catch (error) {
+    //     if (axios.isAxiosError(error)) {
+    //       toast.error(error.response.data.message);
+    //       return;
+    //     }
+    //     toast.error(error.message);
+    //   }
+    // }
+    // fetchAPI();
   }, []);
-  console.log(checkout);
 
   const toggleInput = () => {
     setShowInput(!showInput);

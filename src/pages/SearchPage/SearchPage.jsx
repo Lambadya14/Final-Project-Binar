@@ -7,6 +7,7 @@ import ItemCardTicket from "../../components/ItemCardTicket/ItemCardTicket";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { useLocation } from "react-router-dom";
+import LoadingComponent from "../../components/LoadingComponent";
 import axios from "axios";
 import qs from "qs";
 
@@ -21,7 +22,11 @@ const SearchPage = (searchData) => {
       prevId === airplane_id ? null : airplane_id
     );
   };
-
+  //get data from form
+  const queryParams = new URLSearchParams(location.search);
+  const dep_airport = queryParams.get("dep_airport");
+  const arr_airport = queryParams.get("arr_airport");
+  const seatclass = queryParams.get("seatclass");
   useEffect(() => {
     if (!location) return;
     const fetchData = async () => {
@@ -38,7 +43,7 @@ const SearchPage = (searchData) => {
         const config = {
           method: "post",
           maxBodyLength: Infinity,
-          url: `${process.env.REACT_APP_API}flight_schedulles_detail?sort=duration_asc&page=1`,
+          url: `${process.env.REACT_APP_API}/flight_schedulles_detail?sort=duration_asc&page=1`,
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
@@ -47,6 +52,7 @@ const SearchPage = (searchData) => {
 
         const response = await axios.request(config);
         console.log(response.data.data.departure);
+        console.log("A", response);
         // Set the departure state with the response data
         setDeparture(response.data.data.departure);
       } catch (error) {
@@ -69,8 +75,16 @@ const SearchPage = (searchData) => {
                 className="col-8 btn btn-primary text-start my-0 btn btn-lilac text-semibold border-0 py-2"
                 style={{ color: "white" }}
               >
-                <i className="fas fa-arrow-left me-3"></i>JKT MLB - 2 Penumpang
-                - Economy
+                <i className="fas fa-arrow-left me-3"></i>{" "}
+                {`${dep_airport} ${arr_airport} - 2 Passengers - ${
+                  seatclass === "1"
+                    ? "Economy"
+                    : seatclass === "2"
+                    ? "Premium Economy"
+                    : seatclass === "3"
+                    ? "Business"
+                    : "First Class"
+                }`}
               </button>
               <button
                 className="col-4 btn btn-primary my-0 btn btn-green-pastel border-0 py-2 text-semibold"
@@ -118,7 +132,7 @@ const SearchPage = (searchData) => {
                     />
                   ))
                 ) : (
-                  <p>data kosong</p>
+                  <LoadingComponent />
                 )}
               </div>
             </div>

@@ -5,7 +5,7 @@ import "../../assets/css/Banner.css";
 const ModalPassanger = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedPassengers, setSelectedPassengers] = useState({
-    adults: 1,
+    adults: 0,
     children: 0,
     infants: 0,
   });
