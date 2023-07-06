@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../redux/actions/authActions";
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
+import { toast } from "react-toastify";
+import axios from "axios";
 import "../assets/css/Login.css";
 
 const Login = () => {
@@ -29,6 +31,40 @@ const Login = () => {
     });
 
     dispatch(login(data, navigate));
+  };
+
+  const resetPassword = async (e) => {
+    e.preventDefault();
+    if (email.length === 0) {
+      toast.warn("Alamat Email Tidak Boleh Kosong");
+      return;
+    }
+    try {
+      let data = JSON.stringify({
+        email,
+      });
+
+      let config = {
+        method: "post",
+        url: `${process.env.REACT_APP_API}/auth/send-reset-password`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      const response = await axios.request(config);
+      console.log(response.data);
+
+      toast.success("Reset Password Berhasil di Kirim ke Email Anda");
+      navigate("/ResetPassword");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response.data.message);
+        return;
+      }
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -65,7 +101,7 @@ const Login = () => {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <div class="d-flex justify-content-between">
                   <Form.Label>Password</Form.Label>
-                  <Link to="/ResetPassword" className="text wrong-password">
+                  <Link onClick={resetPassword} className="text wrong-password">
                     Lupa Kata Sandi
                   </Link>
                 </div>
